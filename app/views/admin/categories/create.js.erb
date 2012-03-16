@@ -10,24 +10,6 @@ if (errors > 0) {
   $('#flash_container').html('<div class="errorExplanation" id="errorExplanation"><p>There were problems:</p><ul>' + error_messages + '</ul></div>');
   $('.save-loader').hide();
 } else {
-  <% if @category.parent %>
-      parent.$("#sub_categories_for_<%= @category.parent.id %>").append("<%= escape_javascript(options_for_select [[@category.name, @category.id]])%>");
-  <% else %>
-    parent.$("#categories_select").append("<%= escape_javascript(options_for_select [[@category.name, @category.id]])%>");
-    parent.$("#categories_select").val(<%= @category.id %>);
-  <% end %>
-
-  <% if @category.parent %>
-    parent_category_id  = ""
-    parent.$("#categories_select option:selected").each(function () {
-      parent_category_id += $(this).val();
-    });
-    if( parent_category_id === "<%= @category.parent.id %>" ){
-      parent.$("#sub_categories_select").append("<%= escape_javascript(options_for_select [[@category.name, @category.id]])%>");
-      parent.$("#sub_categories_select").val(<%= @category.id %>);
-    }
-  <% end %>
-
 
   // Close dialog
   $(parent.document.body).removeClass('hide-overflow');

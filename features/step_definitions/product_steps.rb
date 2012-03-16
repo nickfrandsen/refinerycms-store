@@ -10,9 +10,7 @@ Given /^I have a product titled "([^\"]*)"$/ do |name|
     :name => name,
     :description => "description for product",
     :price => 9.99,
-    :brand => brand,
     :category => category,
-    :sub_category => sub_category
   )
 end
 
@@ -31,18 +29,6 @@ end
 Given /^I only have a foo product with ([^\d]*)$/ do
   Product.delete_all
   Given %{I have a product titled "foo product"}
-end
-
-Then /^I (only )?have a ([^\"]*) product with (\d+) love[s]? and (\d+) comment[s]?$/ do |only, name, loves, comments|
-  Product.delete_all if only
-  Given %{I have a product titled "#{name} product"}
-  product = Product.where(:name => "#{name} product").first
-  loves.to_i.times do
-    product.love.create
-  end
-  comments.to_i.times do
-    product.comments.create!(:message => "test comment")
-  end
 end
 
 Then /^I should have ([0-9]+) products?$/ do |count|

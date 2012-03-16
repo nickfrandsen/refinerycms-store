@@ -1,7 +1,5 @@
 <%= form_for [:admin, @category], :remote => true do |form| %>
   <div class = "field" >
-    <%= form.label :parent %>
-    <%= collection_select('category', 'parent_id', @parents, :id, :name, :prompt => true) -%>
     <%= form.label :name %>
     <%= form.text_field :name %><br />
   </div>

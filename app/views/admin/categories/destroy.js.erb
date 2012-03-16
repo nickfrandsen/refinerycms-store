@@ -2,8 +2,4 @@ $('#flash_container').html('<div class="flash_message"><p><%= flash[:notice] %>.
 <% flash.clear %>
 <% if @category.try(:destroyed?) %>
   $("#categories_select option:selected").remove();
-  $("#sub_categories_select option").remove();
-<% end %>
-<% if @subcategory.try(:destroyed?) %>
-  $("#sub_categories_select option:selected").remove();
 <% end %>

@@ -3,8 +3,6 @@
     %li
       sort by:
     %li
-      = link_to "most loved", most_loved, (@order_by == 'loved')? {:class => 'selected'} : {}
-    %li
       = link_to "lowest price", lowest_price, (@order_by == 'lowest-price')? {:class => 'selected'} : {} 
     %li
       = link_to "highest price", highest_price, (@order_by == 'highest-price')? {:class => 'selected'} : {}

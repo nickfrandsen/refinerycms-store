@@ -1,0 +1,8 @@
+var option_form = "<%= escape_javascript(render :partial => 'product_option_fields',
+    :locals => {
+        :product_option => @product_option,
+        :index => Time.now.to_i + rand(999999)
+    }) %>";
+$("#product_options").append(option_form);
+$("#product_options").find("div:last").slideDown(200);
+init_tooltips();

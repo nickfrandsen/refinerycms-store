@@ -26,21 +26,37 @@ module Admin
               @products.order('comments_count DESC').paginate(:page => params[:page], :per_page => per_page)
             else
               @products.paginate(:page => params[:page], :per_page => per_page)
-                      end
+            end
         end
         render :partial => 'products' if request.xhr?
       end
     end
 
-
-    def find_all_brands
-      @brands = Brand.all
-      @brand = Brand.new
-    end
-
     def find_all_categories
       @categories = Category.where(:parent_id => nil)
       @category = Category.new
+    end
+
+    def add_product_option
+      @product_option = ProductOption.new(:product_id => params[:product_id])
+      
+      respond_to do |format|
+        format.js
+      end
+    end
+    
+    def remove_product_option
+      product = Product.find(params[:product_id])
+      product_option = product.product_options.find(params[:product_option_id])
+      @product_option_id = params[:product_option_id]
+      
+      if product_option
+        product.product_options.delete(product_option)
+        
+        respond_to do |format|
+          format.js
+        end
+      end
     end
 
   end

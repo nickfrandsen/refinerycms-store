@@ -1,7 +1,5 @@
 class ProductsController < ApplicationController
-  helper :love
   helper :rank
-  helper :worn
   helper :share
   include ProductsFilter
   include ResourcesFilter
@@ -24,9 +22,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @related_videos = Video.by_product @product
-    
-    # you can use meta fields from your model instead (e.g. browser_title)
-    # by swapping @page for @product in the line below:
+
     present(@page)
   end
   

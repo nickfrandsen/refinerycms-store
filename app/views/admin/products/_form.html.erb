@@ -9,14 +9,6 @@
     <%= f.text_field :name, :class => 'larger widest'  -%>
   </div>
 
-  <div class='field one_row_field'>
-    <%= f.label :brand -%>
-    <%= collection_select('product', 'brand_id', @brands, :id, :name, :prompt => true) -%>
-    <%= link_to 'Add brand', new_admin_brand_path(:dialog => true, :width => 300, 
-                                                     :height => 250),
-                                                     { :class => 'button', :id => 'add-category-link' } %>
-  </div>
-
   <%= render :partial => 'admin/categories/categories', :locals => {:f => f, :resource => @product, :categories => @categories}%>
   
   <div class='field one_row_field'>
@@ -24,15 +16,6 @@
     <%= f.text_field :price, :class=> 'price'  -%>
   </div>
   
-  <div class='field'>
-    <%= f.label :picture -%>
-    <%= render :partial => "/shared/admin/image_picker", :locals => {
-          :f => f,
-          :field => :picture_id,
-          :image => @product.picture,
-          :toggle_image_display => false
-        } %>
-
   <div class='field'>
     <div id='page-tabs' class='clearfix ui-tabs ui-widget ui-widget-content ui-corner-all'>
       <ul id='page_parts'>
@@ -51,6 +34,17 @@
         <% end %>
       </div>
     </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :dates %>
+    <% unless @product.product_options.blank? %> 
+      <%  @product.product_options.each_with_index do |option, i| %>
+        <%=  render :partial => 'product_option_fields', :locals => { :product_option => option, :index => i } %>
+      <% end %>
+    <% end %>
+    <div id="product_options"></div>
+    <p><%=  link_to 'Add an Option', admin_add_product_option_path, :remote => true, :event_id => @product.id, :method => :post  %></p>
   </div>
   
   <%= render :partial => "/shared/admin/form_actions",
@@ -73,16 +67,6 @@
       page_options.init(false, '', '');
       $(".price").numeric({
         negative: false
-      });
-      $("#product_category_id").change(function(){
-        var parent_category_id = "";
-        var sub_category_options = "";
-        $("select#product_category_id option:selected").each(function () {
-          parent_category_id += $(this).val();
-        });
-        sub_category_options = $("#sub_categories_for_" + parent_category_id ).html();
-        $("select#product_sub_category_id").empty();
-        $("select#product_sub_category_id").append( sub_category_options );
       });
     });
 

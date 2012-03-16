@@ -1,6 +1,5 @@
 class CartsController < ApplicationController
 
-  before_filter :find_current_member
   before_filter :find_shopping_cart!
 
   def index
@@ -16,20 +15,11 @@ class CartsController < ApplicationController
   end
   
   def update
-    cart = Cart.where(:member_id => @member_id).first
+    cart = Cart.where(:session_id => request.session_options[:id]).first
     item = cart.items.where(:id => params[:id]).first
     item.quantity = params[:cart_item][:quantity]
     item.save
     render :index
   end
 
-protected
-
-  def find_current_member
-    if member_signed_in?
-      @member_id = current_member.id
-    else
-      redirect_to new_member_session_path
-    end
-  end
 end

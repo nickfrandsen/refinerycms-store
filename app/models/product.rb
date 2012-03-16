@@ -4,20 +4,18 @@ class Product < ActiveRecord::Base
   alias_attribute :title, :name
 
   has_friendly_id :name, :use_slug => true
-  
-  has_many :comments, :as => :comentable, :dependent => :destroy
+
+  has_many_page_images
+
+  has_many :product_options, :dependent => :destroy 
+  accepts_nested_attributes_for :product_options, :allow_destroy => true
 
   validates :name, :presence => true, :uniqueness => true
   validates :description, :presence => true
   validates :price, :presence => true
 
-  belongs_to :picture, :class_name => 'Image'
-  belongs_to :brand
   belongs_to :category
-  belongs_to :sub_category, :class_name => 'Category'
   
-  has_many :love, :as => :loveable, :dependent => :destroy
-  has_many :worns, :as => :wornable, :dependent => :destroy
   has_many :cart_items, :dependent => :destroy
   
   after_save :expire_cache
@@ -25,21 +23,8 @@ class Product < ActiveRecord::Base
 
   delegate :name, :to => :slug, :prefix => true, :allow_nil => true
 
-  def loved_by?(member)
-    love.map(&:member_id).include? member.id if member
-  end
-
-  def worn_by?(member)
-    worns.map(&:member_id).include? member.id if member
-  end
-
-  def self.by_brand(brand)
-    brand_id = brand.to_i
-    joins(:brand).where(:brands => {:id => brand_id})
-  end
-
   def self.by_category(category)
-      category_id = category.to_i
+    category_id = category.to_i
     joins(:category).where(:categories => {:id => category_id})
   end
   
@@ -52,8 +37,4 @@ class Product < ActiveRecord::Base
     end
   end
 
-private
-  def expire_cache
-    Rails.cache.delete("views/product_thumbnail/#{self.id}")
-  end
 end

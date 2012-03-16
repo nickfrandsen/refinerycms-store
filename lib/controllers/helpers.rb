@@ -19,7 +19,7 @@ module Refinerycms
             end
 
             def find_shopping_cart!
-              @shopping_cart = Cart.find_or_create_by_member_id(current_member.id)
+              @shopping_cart = Cart.find_or_create_by_session_id(request.session_options[:id])
             end
           end
         end

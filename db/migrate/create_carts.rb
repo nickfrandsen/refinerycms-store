@@ -3,7 +3,7 @@ class CreateCarts < ActiveRecord::Migration
   def self.up
     create_table :carts do |t|
       t.integer :position
-      t.integer :member_id
+      t.integer :session_id
 
       t.timestamps  
     end

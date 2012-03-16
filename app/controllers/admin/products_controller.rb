@@ -1,6 +1,5 @@
 module Admin
   class ProductsController < Admin::BaseController
-    before_filter :find_all_brands
     before_filter :find_all_categories
 
     crudify :product,
@@ -14,7 +13,7 @@ module Admin
         render :json => @products.map! { |product| {"id" => product.id, "name" => product.name} }
       else
         unless params[:search].blank?
-          query_products= {:name_or_description_or_category_name_or_sub_category_name_contains => params[:search]}
+          query_products= {:name_or_description_or_product_category_name_contains => params[:search]}
           products = Product.search(query_products)
           @products = products.relation.paginate(:page => params[:page], :per_page => per_page)
         else
@@ -33,8 +32,8 @@ module Admin
     end
 
     def find_all_categories
-      @categories = Category.where(:parent_id => nil)
-      @category = Category.new
+      @product_categories = ProductCategory.all
+      @product_category = ProductCategory.new
     end
 
     def add_product_option

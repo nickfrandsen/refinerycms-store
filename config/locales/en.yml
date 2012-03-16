@@ -4,11 +4,26 @@ en:
       image_picker:
         image: image
   plugins:
+    product_categories:
+      title: Product Categories
     carts: 
       title: Carts
     products:
       title: Products
   admin:
+    product_categories:
+      actions:
+        create_new: Add New Product Category
+        reorder: Reorder Product Categories
+        reorder_done: Done Reordering Product Categories
+      records:
+        title: Product Categories
+        sorry_no_results: Sorry! There are no results found.
+        no_items_yet: There are no Product Categories yet. Click "Add New Product Category" to add your first product category.
+      product_category:
+        view_live_html: View this product category live <br/><em>(opens in a new window)</em>
+        edit: Edit this product category
+        delete: Remove this product category forever
     carts: 
       actions: 
         create_new: Add New Cart
@@ -41,3 +56,5 @@ en:
   products:
     show:
       other: Other Products
+
+---

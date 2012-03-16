@@ -4,13 +4,12 @@ end
 
 Given /^I have a product titled "([^\"]*)"$/ do |name|
   brand = Brand.first || Brand.create!(:name => "Brand001")
-  category = Category.first || Category.create!(:name => "Category1")
-  sub_category = Category.where('parent_id is null').first || Category.create!(:name => "Category1.1", :parent => category)
+  product_category = ProductCategory.first || ProductCategory.create!(:name => "Category1")
   Product.create!(
     :name => name,
     :description => "description for product",
     :price => 9.99,
-    :category => category,
+    :product_category => product_category,
   )
 end
 

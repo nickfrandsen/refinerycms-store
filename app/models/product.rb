@@ -14,18 +14,18 @@ class Product < ActiveRecord::Base
   validates :description, :presence => true
   validates :price, :presence => true
 
-  belongs_to :category
+  belongs_to :product_category
   
   has_many :cart_items, :dependent => :destroy
   
-  after_save :expire_cache
+  # after_save :expire_cached
   before_destroy :ensure_not_referenced_by_any_cart_item
 
   delegate :name, :to => :slug, :prefix => true, :allow_nil => true
 
   def self.by_category(category)
     category_id = category.to_i
-    joins(:category).where(:categories => {:id => category_id})
+    joins(:product_category).where(:product_categories => {:id => category_id})
   end
   
   def ensure_not_referenced_by_any_cart_item

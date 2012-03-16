@@ -9,7 +9,11 @@
     <%= f.text_field :name, :class => 'larger widest'  -%>
   </div>
 
-  <%= render :partial => 'admin/categories/categories', :locals => {:f => f, :resource => @product, :categories => @categories}%>
+  <div class='field one_row_field'>
+    <%= f.label :product_category -%>
+    <%= f.collection_select( 'product_category_id', @product_categories, :id, :name, {:prompt => true}, {:id => 'product_categories_select'}) -%>
+    <%= link_to 'Add New Category', new_admin_product_category_path(:dialog => true, :width => 300, :height => 250) %>
+  </div>
   
   <div class='field one_row_field'>
     <%= f.label :price -%>
@@ -24,6 +28,9 @@
             <%= link_to part.to_s.titleize, "##{part}" %>
           </li>
         <% end %>
+        <li class='ui-state-default' id="custom_images_tab"> 
+          <%= link_to 'Images', "#custom_tab_0" %> 
+        </li>
       </ul>
 
       <div id='page_part_editors'>
@@ -32,12 +39,15 @@
             <%= f.text_area part, :rows => 20, :class => 'wymeditor widest' -%>
           </div>
         <% end %>
+        <div class='page_part' id='custom_tab_0'> 
+          <%= render :partial => "/admin/pages/tabs/images", :locals => { :f => f } %> 
+        </div>
       </div>
     </div>
   </div>
 
   <div class="field">
-    <%= f.label :dates %>
+    <%= f.label :options %>
     <% unless @product.product_options.blank? %> 
       <%  @product.product_options.each_with_index do |option, i| %>
         <%=  render :partial => 'product_option_fields', :locals => { :product_option => option, :index => i } %>
@@ -57,19 +67,13 @@
 <% end -%>
 
 <% content_for :stylesheets do %>
-  <%= stylesheet_link_tag 'custom' %>
+  <%# stylesheet_link_tag 'custom' %>
 <% end %>
 
 <% content_for :javascripts do %>
-<%= javascript_include_tag 'jquery.numeric' %>
   <script>
     $(document).ready(function(){
       page_options.init(false, '', '');
-      $(".price").numeric({
-        negative: false
-      });
     });
-
   </script>
-
 <% end %>

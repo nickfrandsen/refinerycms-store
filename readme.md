@@ -6,7 +6,6 @@ Simple engine to create a product catalog and basic shopping cart
 
 Refinerycms-products views are in haml so add to your Gemfile
 
-    gem 'haml'
     gem 'refinerycms-store', 
 
 And run
@@ -14,7 +13,6 @@ And run
     bundle install
     
     rails g refinerycms_store
-    rails g refinerycms_carts
 
 Now you should run new migrations
 

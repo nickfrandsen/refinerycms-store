@@ -18,25 +18,9 @@ module Refinerycms
             :class => Product,
             :title => 'name'
           }
-        end
-        Refinery::Plugin.register do |plugin|
-          plugin.name = "categories"
-          plugin.hide_from_menu = true
-          plugin.activity = {
-            :class => Category,
-            :title => 'name'
-          }
-        end
-        Refinery::Plugin.register do |plugin|
-          plugin.name = "brands"
-          plugin.hide_from_menu = true
-          plugin.activity = {
-            :class => Brand,
-            :title => 'name'
-          }
+          plugin.menu_match = /^(admin|refinery)\/(product_categor(y|ie)|product)s?/
         end
       end
     end
   end
 end
-require File.expand_path('../refinerycms-carts', __FILE__)

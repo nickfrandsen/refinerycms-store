@@ -2,24 +2,22 @@
   resources :products, :only => [:index, :show]
   
   scope(:path => 'refinery', :as => 'admin', :module => 'admin') do
+
+    match '/event/add_product_option(/:product_id)' => 'products#add_product_option', :as => 'add_product_option'
+    match '/event/remove_product_option(/:product_id)(/:product_option_id)' => 'products#remove_product_option', :as => 'remove_product_option'
+
     resources :products, :except => :show do
       collection do
         post :update_positions
       end
     end
-    resources :brands, :only => [:new, :create ]
-    resources :categories, :only => [:new, :create ]
-    resource :category, :only => :destroy
-  end
-  
-  resources :carts, :only => [:index, :create, :update]
-  
-  scope(:path => 'refinery', :as => 'admin', :module => 'admin') do
-    resources :carts, :except => :show do
+    resources :product_categories, :except => :show do
       collection do
         post :update_positions
       end
     end
   end
+  
+  resources :carts, :only => [:index, :create, :update]
   resources :cart_items, :only => [:destroy]
 end

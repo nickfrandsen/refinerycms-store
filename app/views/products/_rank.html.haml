@@ -1,8 +1,0 @@
-.rankMenu.push-1.span-17.last
-  %ul.sortMenu
-    %li
-      sort by:
-    %li
-      = link_to "lowest price", lowest_price, (@order_by == 'lowest-price')? {:class => 'selected'} : {} 
-    %li
-      = link_to "highest price", highest_price, (@order_by == 'highest-price')? {:class => 'selected'} : {}

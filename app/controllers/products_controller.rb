@@ -2,34 +2,46 @@ class ProductsController < ApplicationController
   helper :rank
   helper :share
   include ProductsFilter
-  include ResourcesFilter
+  # include ResourcesFilter
 
   before_filter :find_page
+  before_filter :find_categories
 
   def index
+    @page_title = 'Products'
+    @products = Product.order('position desc').paginate({
+        :page => params[:page],
+        :per_page => RefinerySetting.find_or_set(:products_posts_per_page, 10)
+      })
+    @current_section = 'products'
     present(@page)
-
-    products!
-
-    if @not_found
-      return error_404
-    end
-    @branch = params[:kind] ? params[:kind] : params[:resource]
-    @leaf = params[:kind_name] ? params[:kind_name] : params[:filter_name]
-    
   end
 
   def show
     @product = Product.find(params[:id])
-    @related_videos = Video.by_product @product
-
     present(@page)
+  end
+  
+  def category
+    @product_category = ProductCategory.find(params[:category_id])
+    unless @product_category.nil?
+      @products = @product_category.products.paginate({
+          :page => params[:page],
+          :per_page => RefinerySetting.find_or_set(:products_per_page, 10)
+        })
+    end
+    @page_title = "#{@product_category.name.titleize} Products"
+    render :template => 'products/index'
   end
   
 protected
 
   def find_page
     @page = Page.where(:link_url => "/products").first
+  end
+  
+  def find_categories
+    @product_categories = ProductCategory.with_products
   end
   
 end

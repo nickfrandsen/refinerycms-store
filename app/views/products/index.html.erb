@@ -1,0 +1,29 @@
+<% content_for :title, @page_title %>
+
+<%= content_for :aside do %>
+  <%= render :partial => "products/nav" -%>
+<% end -%>
+
+<% content_for :page do %>
+  <section class="products">
+    <h1 class="section-header starred">Store</h1>
+    <ul class="clearfix">
+      <% @products.each do |product| %>
+        <li class="product <%= product.product_category.friendly_id %> -%>">
+          <article>
+            <hgroup>
+              <h1><a href="<%= product_path(product) %>"><%= product.title -%></a></h1>
+              <h3 class="category <%= product.product_category.friendly_id %>"><%= product.product_category.name %></h3>
+            </hgroup>
+            <a href="<%= product_path(product) %>"><%= image_tag(product.images.first.thumbnail("290x").url, :width => 290) unless product.images.blank? %></a>
+          </article>
+        </li>
+      <% end -%>
+    </ul>
+  </section>
+  <%= will_paginate @products, :renderer => SearchPagination::LinkRenderer %>
+<% end %>
+
+<%= content_for :javascripts do %>
+  <%= javascript_include_tag 'products' -%>
+<% end -%>

@@ -1,0 +1,11 @@
+  <section id="filters" class="divider section-nav interior">
+  <h1>Filter:</h1>
+  <ul>
+    <li class="show-all"><%= link_to 'all', products_path, :class => "#{'selected' if params['category_id'].blank? and @product.nil?}" %></li>
+    <% @product_categories.each do |category| %>
+      <li>
+        <%= link_to category.name.titleize, products_by_category_path(category.id), :class => "#{'selected' if params[:category_id].to_i == category.id}" -%>
+      </li>
+    <% end -%>
+  </ul>
+</section>

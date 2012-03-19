@@ -11,6 +11,7 @@
         post :update_positions
       end
     end
+
     resources :product_categories, :except => :show do
       collection do
         post :update_positions

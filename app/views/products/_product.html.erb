@@ -1,0 +1,28 @@
+<article class="product single clearfix">
+  <aside class="section-title divider">
+    
+    <% unless is_single %>
+      <h1><%= link_to product.title, product_path(product) %></h1>
+    <% else %>
+      <h1><%= product.title %></h1>
+    <% end -%>
+    
+    <%=raw "<div class=\"description\">#{product.description}</div>" unless product.description.blank? %>
+    <%#raw "<div class=\"details\">#{product.details}</div>" unless product.details.blank? %>
+
+    <%= render :partial => '/shared/edit_bug', :locals => { :obj => product, :edit_path => edit_admin_product_path(product) }%>
+  </aside>
+  <section class="summary">
+    <%- unless product.images.blank? %>
+      <div class="slider">
+        <ul class="product-images">
+        <% product.images.each_with_index do |image, index| %>
+          <li>
+          <%= image_tag image.thumbnail("290x").url, :alt => [product.title, index].join(" "), 'data-uid' => image.image_uid, 'data-desktop_width' => 490, 'data-giant_desktop_width' => 730, :class => 'responsive' -%>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    <%- end %>
+  </section>
+</article>

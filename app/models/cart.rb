@@ -4,29 +4,21 @@ class Cart < ActiveRecord::Base
   
   has_many :items, :class_name => "CartItem", :dependent => :destroy
   
-  has_friendly_id :cart_name, :use_slug => true
-
-  belongs_to :member
-  
   def add_item(product, price)
-    if item = self.items.where(:product_id => product).first
+    if item = self.items.find_by_product_id(product)
       item.quantity += 1
       item.save
     else
-      self.items.create(:product_id => product, :price => price)
-    end
-  end
-  
-  def cart_name
-    if member.first_name.blank? & member.last_name.blank?
-      member.email.split("@")[0]
-    else
-      member.first_name + ' ' + member.last_name
+      self.items.create(:product_id => product, :price => price, :quantity => 1)
     end
   end
   
   def subtotal
-    items.map(&:subtotal).reduce(:+)
+    unless self.items.empty?
+      self.items.map(&:subtotal).reduce(:+)
+    else
+      return 0
+    end
   end
   
 end

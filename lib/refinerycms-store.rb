@@ -1,11 +1,5 @@
 module Refinerycms
   module Store
-    module ShoppingCart
-      module Controllers
-        autoload :Helpers, 'controllers/helpers'
-      end
-    end
-    
     class Engine < Rails::Engine
       initializer "static assets" do |app|
         app.middleware.insert_after ::ActionDispatch::Static, ::ActionDispatch::Static, "#{root}/public"

@@ -22,7 +22,7 @@ module Admin
       if @product_category.products.count.zero?
         return true
       else
-        flash[:message] = "This category is in use"
+        flash[:notice] = "The category '%s' is in use by %s product(s)." % [@product_category.title, @product_category.products.count]
         return false
       end
     end

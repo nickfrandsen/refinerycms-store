@@ -19,6 +19,9 @@
     end
   end
   
-  resources :carts, :only => [:index, :create, :update]
+  resources :cart,
+            :only => [:index, :create, :update],
+            :as => :carts,
+            :controller => 'carts'
   resources :cart_items, :only => [:destroy]
 end

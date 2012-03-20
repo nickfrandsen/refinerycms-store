@@ -5,9 +5,9 @@
 <% end -%>
 
 <% content_for :page do %>
-  <section class="products">
+  <section class="store">
     <h1 class="section-header starred">Store</h1>
-    <ul class="clearfix">
+    <ul class="products clearfix filter-items">
       <% @products.each do |product| %>
         <li class="product <%= product.product_category.friendly_id %> -%>">
           <article>

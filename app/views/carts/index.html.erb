@@ -1,0 +1,13 @@
+<% content_for :page do %>
+  <section class="cart">
+    <h1 class="section-header starred">Cart</h1>
+    <% unless @cart.items.blank? %>
+      <table class="cart clearfix">
+        <%= render :partial => 'cart_item', :collection => @cart.items, :as => :item %>
+        <tr><td colspan="3">Total: <%= number_to_currency(@cart.subtotal) %></td></tr>
+      </table>
+    <% else %>
+      <p class="error">Your cart is empty.</p>
+    <% end -%>
+  </section>
+<% end %>

@@ -14,11 +14,13 @@ class ProductsController < ApplicationController
         :per_page => RefinerySetting.find_or_set(:products_posts_per_page, 10)
       })
     @current_section = 'products'
+    @body_class = 'index'
     present(@page)
   end
 
   def show
     @product = Product.find(params[:id])
+    @body_class = 'single'
     present(@page)
   end
   

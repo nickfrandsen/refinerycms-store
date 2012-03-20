@@ -6,9 +6,31 @@
     <% else %>
       <h1><%= product.title %></h1>
     <% end -%>
-    
-    <%=raw "<div class=\"description\">#{product.description}</div>" unless product.description.blank? %>
-    <%#raw "<div class=\"details\">#{product.details}</div>" unless product.details.blank? %>
+
+    <% unless product.description.blank? %>
+      <%=raw "<div class=\"description\">#{product.description}</div>" %>
+    <% end -%>
+
+    <% unless product.details.blank? %>
+      <%=raw "<h3>Product Details</h3><div class=\"details\">#{product.details}</div>" %>
+    <% end -%>
+
+    <%= form_tag '/cart' do %>
+
+      <% unless product.product_options.blank? %>
+        <%=raw "<h3>Product Options</h3><div class=\"options\">" %>
+        <% product.product_options.each do |option| %>
+          <label><input type="radio" name="product-option" value="<%= option.price_override %>" id="option-<%= option.id %>"/> <%=raw option.option_name %> <%= number_to_currency(option.price_override) unless option.price_override.blank? %></label>
+        <% end -%>
+      <% end -%>
+
+      <h2 class="price">Price: <%= number_to_currency(product.price) %></h2>
+
+      <%= hidden_field_tag 'product_id', product.id  %>
+      <% content_tag :button, :type => :submit, :class => "submit button" do %>
+         Buy
+      <% end %>
+    <% end %>
 
     <%= render :partial => '/shared/edit_bug', :locals => { :obj => product, :edit_path => edit_admin_product_path(product) }%>
   </aside>

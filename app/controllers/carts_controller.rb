@@ -1,25 +1,33 @@
 class CartsController < ApplicationController
 
-  before_filter :find_shopping_cart!
+  before_filter :get_cart
 
   def index
+    present @page
   end
   
   def create
     product = Product.find(params[:product_id])
 
-    @shopping_cart.add_item(product.id, product.price)
-    @shopping_cart.save
+    @cart.add_item(product.id, product.price)
+    @cart.save
 
     redirect_to carts_path
   end
   
   def update
-    cart = Cart.where(:session_id => request.session_options[:id]).first
-    item = cart.items.where(:id => params[:id]).first
-    item.quantity = params[:cart_item][:quantity]
-    item.save
-    render :index
+    item = CartItem.find(params[:id])
+    unless item.nil?
+      item.quantity = params[:cart_item][:quantity]
+      item.save
+    end
+    redirect_to carts_path
   end
 
+private
+
+  def get_cart
+    @cart = Cart.find_or_create_by_session_id(request.session_options[:id])
+  end
+  
 end

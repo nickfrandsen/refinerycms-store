@@ -1,7 +1,7 @@
 <% content_for :title, @page_title %>
 
 <%= content_for :aside do %>
-  <%= render :partial => "products/nav" -%>
+  <%# render :partial => "products/nav" -%>
   <%= render :partial => "shared/nextprev", :locals => { :obj => @product, :section_label => 'Store', :section_url => products_path  } -%>
 <% end -%>
 

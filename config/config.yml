@@ -1,5 +1,6 @@
 defaults: &DEFAULTS
   paypal_business: store@firebellydesign.com
+  twitter_user: firebellydesign
 
 development:
   <<: *DEFAULTS

@@ -3,10 +3,10 @@ namespace :refinery do
   namespace :carts do
     
     # call this task my running: rake refinery:carts:my_task
-    # desc "Description of my task below"
-    # task :my_task => :environment do
-    #   # add your logic here
-    # end
+    desc "Clean out carts older than 7 days"
+    task :cleanup => :environment do
+      Cart.where("updated_at <= ?", 7.days.ago).delete_all
+    end
   
   end
   

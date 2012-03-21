@@ -1,8 +1,6 @@
 class ProductsController < ApplicationController
   helper :rank
   helper :share
-  include ProductsFilter
-  # include ResourcesFilter
 
   before_filter :find_page
   before_filter :find_categories

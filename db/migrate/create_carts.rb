@@ -1,5 +1,4 @@
 class CreateCarts < ActiveRecord::Migration
-
   def self.up
     create_table :carts do |t|
       t.integer :position
@@ -9,8 +8,6 @@ class CreateCarts < ActiveRecord::Migration
     end
 
     add_index :carts, :id
-
-    load(Rails.root.join('db', 'seeds', 'carts.rb'))
   end
 
   def self.down

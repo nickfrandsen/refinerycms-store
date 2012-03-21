@@ -8,3 +8,7 @@
 <% content_for :page do %>
   <%= render :partial => "products/product", :locals => { :product => @product, :is_single => true } %>
 <% end %>
+
+<%= content_for :javascripts do %>
+  <%= javascript_include_tag 'products' -%>
+<% end -%>

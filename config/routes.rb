@@ -1,5 +1,8 @@
 ::Refinery::Application.routes.draw do
+
   resources :products, :only => [:index, :show]
+
+  match "/paypal/ipn", :to => "payments#paypal_ipn", :as => 'paypal_ipn'
   
   scope(:path => 'refinery', :as => 'admin', :module => 'admin') do
 

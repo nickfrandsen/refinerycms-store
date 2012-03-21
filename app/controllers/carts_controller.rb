@@ -8,8 +8,8 @@ class CartsController < ApplicationController
   
   def create
     product = Product.find(params[:product_id])
-
-    @cart.add_item(product.id, product.price)
+    option = ProductOption.find(params[:option_id]) unless params[:option_id].blank?
+    @cart.add_item(product, option)
     @cart.save
 
     redirect_to carts_path

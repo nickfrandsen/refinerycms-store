@@ -1,8 +1,8 @@
 <div class="<%= (product_option.id) ? "ed_" << product_option.id.to_s : '' %>" style="<%= (product_option.id) ? "display: block;" : "display: none;" %>">
     <%= fields_for "product[product_options_attributes][#{index}]", product_option do |option| %>
       <%= option.hidden_field :id %>
-      <%= option.text_field :option_name, :placeholder => 'Option Name (e.g. XL)' %>
-      <%= option.text_field :price_override, :placeholder => 'Price Override? (e.g. 10.00)' %>
+      <%= option.text_field :name, :placeholder => 'Option Name (e.g. XL)' %>
+      <%= option.text_field :price, :placeholder => 'Price Override? (e.g. 10.00)' %>
       <% if product_option.id %>
         <%= link_to image_tag("/images/refinery/icons/delete.png"), admin_remove_product_option_path(product_option.product_id, product_option.id), :remote => true, :medhod => :post, :class => 'cancel', :tooltip => 'Remove this option' %>
       <% else %>

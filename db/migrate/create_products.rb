@@ -4,6 +4,7 @@ class CreateProducts < ActiveRecord::Migration
     create_table :products do |t|
       t.string :name
       t.decimal :price
+      t.decimal :weight
       t.text :description
       t.text :details
       t.integer :product_category_id

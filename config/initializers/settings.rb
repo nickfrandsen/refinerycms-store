@@ -1,0 +1,1 @@
+STORE_CONFIG = YAML.load_file(Rails.root.join('vendor', 'engines', 'refinerycms-store', 'config', 'config.yml'))[Rails.env]

@@ -1,0 +1,11 @@
+defaults: &DEFAULTS
+  paypal_business: store@firebellydesign.com
+
+development:
+  <<: *DEFAULTS
+
+test:
+  <<: *DEFAULTS
+
+production:
+  <<: *DEFAULTS

@@ -1,12 +1,12 @@
 <tr>
-  <td><%= item.product.name  %></td>
-  <td><%= number_to_currency item.price  %></td>
-  <td>
+  <td class="item"><%= link_to item, product_path(item.product) %></td>
+  <td class="price"><%= number_to_currency item.price  %></td>
+  <td class="quantity">
     <% form_for item, :url => cart_path(item) do |f| %>
       <%= f.text_field :quantity, :size => 2 %>
       <%= f.submit 'Update' %>
     <% end -%>
     <%= link_to "Remove", cart_item_path(item.id), :method => :delete, :class => 'delete' %>
   </td>
-  <td><%= number_to_currency item.subtotal  %></td>
+  <td class="subtotal"><%= number_to_currency item.subtotal  %></td>
 </tr>

@@ -1,10 +1,10 @@
 class ProductOption < ActiveRecord::Base
 
-  acts_as_indexed :fields => [ :option_name ]
-  attr_accessible :option_name
-  attr_accessible :price_override
+  acts_as_indexed :fields => [ :name ]
+  attr_accessible :name
+  attr_accessible :price
 
-  validates :option_name, :presence => true
+  validates :name, :presence => true
 
   belongs_to :product 
   

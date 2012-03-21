@@ -2,10 +2,11 @@
   <section class="cart">
     <h1 class="section-header starred">Cart</h1>
     <% unless @cart.items.blank? %>
-      <table class="cart clearfix">
+      <table>
         <%= render :partial => 'cart_item', :collection => @cart.items, :as => :item %>
-        <tr><td colspan="3">Total: <%= number_to_currency(@cart.subtotal) %></td></tr>
+        <tr><td colspan="4" class="subtotal">Total: <%= number_to_currency(@cart.subtotal) %></td></tr>
       </table>
+    <%= render :partial => "paypal_form" -%>
     <% else %>
       <p class="error">Your cart is empty.</p>
     <% end -%>

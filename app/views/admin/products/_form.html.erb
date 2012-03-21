@@ -17,7 +17,15 @@
   
   <div class='field one_row_field'>
     <%= f.label :price -%>
-    <%= f.text_field :price, :class=> 'price' -%>
+    <%= f.text_field :price, :class => 'price' -%>
+  </div>
+  
+  <div class='field one_row_field'>
+    <span class='label_with_help'>
+      <%= f.label :weight, 'Weight (ounces)' %>
+      <%= refinery_help_tag 'Used to determine shipping cost.' %>
+    </span>    
+    <%= f.text_field :weight, :class => 'weight' -%>
   </div>
   
   <div class='field'>

@@ -20,7 +20,7 @@
       <% unless product.product_options.blank? %>
         <%=raw "<h3>Product Options</h3><div class=\"options\">" %>
         <% product.product_options.each do |option| %>
-          <label><input type="radio" name="product-option" value="<%= option.price_override %>" id="option-<%= option.id %>"/> <%=raw option.option_name %> <%= number_to_currency(option.price_override) unless option.price_override.blank? %></label>
+          <label><input type="radio" name="option_id" value="<%= option.id %>" id="option-<%= option.id %>"/> <%=raw option.name %> <%= number_to_currency(option.price) unless option.price.blank? %></label>
         <% end -%>
       <% end -%>
 
